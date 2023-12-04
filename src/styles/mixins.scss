@@ -1,0 +1,103 @@
+@mixin flex($direction, $justify_content, $align: stretch) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify_content;
+	align-items: $align;
+}
+
+@mixin title($weight, $size, $position) {
+	font-weight: $weight;
+	font-size: $size;
+	text-align: $position;
+}
+
+@mixin UL() {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+@mixin fonts($font, $size, $color) {
+	font-family: $font, sans-serif;
+	font-size: $size;
+	color: $color;
+}
+
+@mixin button($width, $height, $background: none, $radius: 0) {
+	width: $width;
+	height: $height;
+	background: $background;
+	border-radius: $radius;
+}
+
+@mixin border($height, $type, $color, $radius: 0) {
+	border: $height $type $color;
+	border-radius: $radius;
+}
+
+@mixin backgroundModalWindow($background) {
+	background: $background;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	@include flex(row, center, center);
+	z-index: 100;
+}
+
+@mixin size($width, $height) {
+	width: $width;
+	height: $height;
+}
+
+@mixin error-message {
+	color: '#D35A63';
+	font-family: 'RobotoBlack';
+	font-size: 0.8rem;
+	letter-spacing: -0.02rem;
+	color: $error-message;
+}
+
+@mixin positionCenter($position) {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@mixin grid-columns($columns...) {
+	display: grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: $columns;
+}
+
+@mixin grid-rows($rows...) {
+	display: grid;
+	grid-template-rows: $rows;
+	grid-template-columns: 1fr;
+}
+
+@mixin grid($rows, $columns) {
+	display: grid;
+	grid-template-rows: $rows;
+	grid-template-columns: $columns;
+}
+
+@mixin box-shadow($x: 0, $y: 0, $blur: 0, $spread: 0, $color: black) {
+	box-shadow: $x $y $blur $spread $color;
+}
+
+@mixin maxSize($width, $height) {
+	max-width: $width;
+	max-height: $height;
+}
+
+@mixin minSize($width, $height) {
+	min-width: $width;
+	min-height: $height;
+}
+
+@mixin line-height-letter-spacing($height, $spacing) {
+	line-height: $height;
+	letter-spacing: $spacing;
+}
