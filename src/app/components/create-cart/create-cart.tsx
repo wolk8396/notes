@@ -40,10 +40,11 @@ const CreateCart = (props:CreateCartProps) => {
   }
 
   const onHandlerNote = (e:ChangeEvent<HTMLInputElement>) => {
-    const tagRegex = /#(\w+)/g;
+    const tagRegex = /#([\p{L}\p{S}\p{N}\p{P}\p{M}]+)/gu;
     const matches = e.target.value.match(tagRegex);
     cloneDate.description = e.target.value;
     cloneDate.tag = matches ? matches.map((match) => match.slice(1)) : [];
+
     setUpdate(cloneDate)
     setValue(e.target.value);
   }

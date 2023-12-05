@@ -84,7 +84,9 @@ const MainPage = () => {
                       description:item.id === update?.id ? update?.description : item.description,
                       tag: item.id === update?.id ? update.tag : item.tag
                     }
-                  }).filter((note)=> note.tag.join('').startsWith(e.target.value));
+                  }).filter((note, i)=>{
+                    return note.tag.join('').includes(e.target.value)
+                  });
 
     if (!!searchTeg.length) setFiltered(searchTeg);
     if (e.target.value.length === 0) setRender(render);
