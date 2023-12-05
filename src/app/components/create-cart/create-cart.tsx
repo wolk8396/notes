@@ -15,43 +15,37 @@ interface CreateCartProps {
   styles:any,
   errorMassages:ErrorModalErrorModule,
   getDateNote: (notes: DateNote) => void;
+  date:DateNote
 }
 
 const CreateCart = (props:CreateCartProps) => {
-  const {handleModal, open, styles, errorMassages, getDateNote} = props;
+  const {handleModal, open, styles, errorMassages, getDateNote, date} = props;
+  const cloneDate = {...date};
   const [error, setError] = useState<string>('');
-
-  const date:DateNote =  {
-    id: '',
-    tag:[],
-    description: ''
-  }
-
+  const [value, setValue] = useState<string>('');
+  const [update, setUpdate] = useState<DateNote>(date);
+ 
   useEffect(() => {
-    if (!open) setError('');
-  
+    if (!open) {
+      setError(''); 
+      setValue('')
+    } else setValue(cloneDate.description)
   },[open])
 
   const onCreateNote = () => {
-    const checkFieldTag = !!date.tag.length;
-    const uniqueId = uuid();
-    date.id = uniqueId;
+    const checkFieldTag = !!update.tag.length;
     !checkFieldTag ? setError(errorMassages?.error): setError('');
-    if (!!!date.description.length) setError(errorMassages?.required);
-    
-    if (!!date.tag.length) {
-      getDateNote(date);
-    } 
-  
+    if (!!!update.description.length) setError(errorMassages?.required);
+    getDateNote(update);  
   }
 
   const onHandlerNote = (e:ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value
-    // date.description =  e.target.value.replace(/#/g, '');
-    date.description = e.target.value;
     const tagRegex = /#(\w+)/g;
-    const matches = text.match(tagRegex);
-    date.tag = matches ? matches.map((match) => match.slice(1)) : [];
+    const matches = e.target.value.match(tagRegex);
+    cloneDate.description = e.target.value;
+    cloneDate.tag = matches ? matches.map((match) => match.slice(1)) : [];
+    setUpdate(cloneDate)
+    setValue(e.target.value);
   }
 
   return(
@@ -63,7 +57,7 @@ const CreateCart = (props:CreateCartProps) => {
   >
     <Box sx={styles} >
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Text in a modal
+        your note the #tag
       </Typography>
       <TextField
           onChange={onHandlerNote}
@@ -72,11 +66,10 @@ const CreateCart = (props:CreateCartProps) => {
           multiline={true}
           sx={{width:'100%', marginTop:'1rem'}}
           rows={10}
-          defaultValue=""
           error={!!error.length}
+          value={value}
         />
-        <Button  sx={{marginTop:'1rem'}} onClick={onCreateNote} variant="outlined">Outlined</Button>
-
+        <Button  sx={{marginTop:'1rem'}} onClick={onCreateNote} variant="outlined">Submit</Button>
         <Typography sx={{marginTop:'1rem', color:'red'}} id="modal-modal-title" variant="h6" component="h2">
           {error}
       </Typography>

@@ -3,4 +3,9 @@ interface ErrorModalErrorModule {
   required:string
 }
 
-export type {ErrorModalErrorModule}
+interface CartButtonTextModule {
+  delete:string,
+  update:string
+}
+
+export type {ErrorModalErrorModule, CartButtonTextModule}

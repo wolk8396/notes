@@ -1,0 +1,22 @@
+
+.MuiPaper-root {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .MuiCardContent-root {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+
+    .MuiTypography-root {
+      padding: 0 1rem;
+    }
+
+    .MuiTypography-body2 {
+      font-size: 1rem;
+    }
+  }
+}
