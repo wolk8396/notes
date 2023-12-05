@@ -25,11 +25,10 @@ const Cart = (props:CartProps) => {
     if (update?.id === notes.id && typeof update !== 'undefined') {
       setValue(update);
     }
-
   }, [update])
 
   return (
-    <Card sx={{ maxWidth: 400, width:'90%', height:250}}>
+    <Card sx={{width:'90%', height:250, margin:'1rem 0'}}>
       <CardContent>
         <Typography sx={{width:'90%', maxHeight:150}} gutterBottom variant="h5" component="div">
          {tags}
@@ -39,8 +38,8 @@ const Cart = (props:CartProps) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => onDeleteCart(notes)}>{text.delete}</Button>
-        <Button size="small" onClick={() => upDateCart(notes)}>{text.update}</Button>
+        <Button variant="contained"  onClick={() => onDeleteCart(notes)}>{text.delete}</Button>
+        <Button variant="contained"  onClick={() => upDateCart(notes)}>{text.update}</Button>
       </CardActions>
     </Card>
   )

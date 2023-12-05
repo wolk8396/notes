@@ -2,18 +2,37 @@
 
 .wrapper {
   @include flex(column, center, center);
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
   margin-bottom: 1rem;
+
+  &__buttons {
+    @include flex(row, space-between, center);
+    width: 72%;
+    max-width: 52rem;
+    min-width: 18.75rem;
+  }
 
   .MuiButtonBase-root {
     margin: 1rem 0;
   }
 
+  .MuiTextField-root {
+    width: 70%;
+    max-width: 75rem;
+    min-width: 18.75rem;
+  }
+
   &__carts {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 2rem;
-    row-gap: 0.5rem;
+    @include flex(column, center, center);
+    width: 90%;
+    .MuiPaper-root {
+      max-width: 62.5rem;
+      min-width: 18.75rem;
+    }
+    .result {
+      font-size: 2rem;
+      color: red;
+    }
   }
 }
