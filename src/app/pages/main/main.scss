@@ -2,6 +2,8 @@
 
 .wrapper {
   @include flex(column, center, center);
+  max-width: 1200px;
+  margin: 0 auto;
   margin-bottom: 1rem;
 
   .MuiButtonBase-root {
