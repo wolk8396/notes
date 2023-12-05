@@ -49,7 +49,7 @@ const MainPage = () => {
       notes.id = uuid();
       dispatch(CreateNotes(notes)).then(res => {
         let notes = (res.payload as createNotes).notes as DateNote;
-          setRender([...render, notes])
+          setRender([notes, ...render]);
         });
         handleClose();
     }
@@ -86,8 +86,6 @@ const MainPage = () => {
                     }
                   }).filter((note)=> note.tag.join('').startsWith(e.target.value));
 
-    // console.log(searchTeg, 'searchTeg', filtered);
-    
     if (!!searchTeg.length) setFiltered(searchTeg);
     if (e.target.value.length === 0) setRender(render);
     !!searchTeg.length ? setValue(true) : setValue(false);
@@ -100,8 +98,10 @@ const MainPage = () => {
 
   return(
     <div className='wrapper'>
-      <Button variant="contained" onClick={() => handleOpen(dateNote)}>{ButtonsText.btn_create}</Button>
-      <Button variant="contained" onClick={onClearNotes}>{ButtonsText.btn_remove}</Button>
+      <div  className='wrapper__buttons'>
+        <Button variant="contained" onClick={() => handleOpen(dateNote)}>{ButtonsText.btn_create}</Button>
+        <Button variant="contained" onClick={onClearNotes}>{ButtonsText.btn_remove}</Button>
+      </div>
       <TextField
         onChange={onSearchTag}
         sx={{margin:'1rem 0'}}
@@ -132,11 +132,10 @@ const MainPage = () => {
           )
         ))}
         {
-        !value && <p>{Result}</p>
+        !value && <p className='result'>{Result}</p>
         }
 			</div>
     </div>
- 
   )
 }
 export default React.memo(MainPage);
