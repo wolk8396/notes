@@ -8,4 +8,8 @@ interface CartButtonTextModule {
   update:string
 }
 
-export type {ErrorModalErrorModule, CartButtonTextModule}
+interface MainKeyValueText {
+  [key: string]: string;
+}
+
+export type {ErrorModalErrorModule, CartButtonTextModule, MainKeyValueText}

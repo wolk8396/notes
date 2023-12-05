@@ -1,13 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import './create-cart.scss';
-import uuid from 'react-uuid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { DateNote } from '../../modules/notes.module';
-import { ErrorModalErrorModule } from '../../modules/text.module';
+import { ErrorModalErrorModule, MainKeyValueText } from '../../modules/text.module';
 
 interface CreateCartProps {
   handleModal: () => void,
@@ -15,11 +14,12 @@ interface CreateCartProps {
   styles:any,
   errorMassages:ErrorModalErrorModule,
   getDateNote: (notes: DateNote) => void;
-  date:DateNote
+  date:DateNote,
+  text:MainKeyValueText
 }
 
 const CreateCart = (props:CreateCartProps) => {
-  const {handleModal, open, styles, errorMassages, getDateNote, date} = props;
+  const {handleModal, open, styles, errorMassages, getDateNote, date, text} = props;
   const cloneDate = {...date};
   const [error, setError] = useState<string>('');
   const [value, setValue] = useState<string>('');
@@ -57,19 +57,19 @@ const CreateCart = (props:CreateCartProps) => {
   >
     <Box sx={styles} >
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        your note the #tag
+        {text.title}
       </Typography>
       <TextField
           onChange={onHandlerNote}
           id="outlined-multiline-static"
-          label="Multiline"
+          label={text.label}
           multiline={true}
           sx={{width:'100%', marginTop:'1rem'}}
           rows={10}
           error={!!error.length}
           value={value}
         />
-        <Button  sx={{marginTop:'1rem'}} onClick={onCreateNote} variant="outlined">Submit</Button>
+        <Button  sx={{marginTop:'1rem'}} onClick={onCreateNote} variant="outlined"> {text.btn_submit}</Button>
         <Typography sx={{marginTop:'1rem', color:'red'}} id="modal-modal-title" variant="h6" component="h2">
           {error}
       </Typography>

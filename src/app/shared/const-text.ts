@@ -1,4 +1,4 @@
-import { CartButtonTextModule, ErrorModalErrorModule } from "../modules/text.module"
+import { CartButtonTextModule, ErrorModalErrorModule, MainKeyValueText } from "../modules/text.module"
 
 const TextModalError:ErrorModalErrorModule  = {
   error: "the note should contain #",
@@ -10,4 +10,22 @@ const TextButtonCart:CartButtonTextModule = {
   update:'update cart'
 }
 
-export {TextModalError, TextButtonCart}
+const SearchInput:MainKeyValueText = {
+  helperText: 'Please enter your tag',
+  label:'Search your Tag'
+}
+
+const ButtonsText: MainKeyValueText = {
+  btn_remove:'Clear all',
+  btn_create:"Create Note",
+}
+
+const ModalText: MainKeyValueText = {
+ btn_submit: 'Submit',
+ title:'Your note',
+ label: 'Please enter your Note'
+}
+
+const Result = 'No results found.'
+
+export {TextModalError, TextButtonCart, Result, SearchInput, ButtonsText, ModalText}
