@@ -1,7 +1,8 @@
-import React, {useState } from 'react';
+import React, {ChangeEvent, useEffect, useState } from 'react';
 import './main.scss';
 import CreateCart from '../../components/create-cart/create-cart';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import { styleModal } from '../../shared/const-modal-style';
 import { TextButtonCart, TextModalError } from '../../shared/const-text';
 import { useAppDispatch} from '../../redux/store';
@@ -21,8 +22,10 @@ const MainPage = () => {
     description: ''
   }
   const [date, setDate] = useState<DateNote>(dateNote);
+  const [filtered, setFiltered] = useState<DateNote[]>(render);
+  const [value, setValue] = useState<boolean>(true);
 
-   const handleOpen = (dateNote:DateNote) =>  {
+  const handleOpen = (dateNote:DateNote) =>  {
     setDate(dateNote);
     setOpen(true);
    };
@@ -32,6 +35,9 @@ const MainPage = () => {
     setDate({  id:'',tag:[], description: ''})
    };
 
+   useEffect(() => {
+    setFiltered(render);
+   }, [render])
 
   const getDateNotes = (notes: DateNote) => {
     const findId = render.find(item => item.id === notes.id);
@@ -65,9 +71,23 @@ const MainPage = () => {
     handleOpen(cart)
   }
 
+  const onSearchTag = (e:ChangeEvent<HTMLInputElement>) => {
+    const searchTeg = [...render].filter((note)=> note.tag.join('').startsWith(e.target.value));
+    if (!!searchTeg.length) setFiltered(searchTeg);
+    if (e.target.value.length === 0) setRender(render);
+    !!searchTeg.length ? setValue(true) : setValue(false);
+  }
+
   return(
     <div className='wrapper'>
       <Button variant="contained" onClick={() => handleOpen(dateNote)}>Create Note</Button>
+      <TextField
+        onChange={onSearchTag}
+        sx={{margin:'1rem 0'}}
+        helperText="Please enter your tag"
+        id="demo-helper-text-misaligned"
+        label=" Search your Tag"
+      />
       <CreateCart 
         handleModal={handleClose}
         open={open}
@@ -77,7 +97,7 @@ const MainPage = () => {
         date={date}      
       /> 
       <div className='wrapper__carts'>
-        {render.map((note) => (
+       {value && filtered.map((note) => (
           (
             <Cart
               key={note.id}
@@ -88,6 +108,9 @@ const MainPage = () => {
             />
           )
         ))}
+        {
+        !value && <p>No results found.</p>
+        }
 			</div>
     </div>
  
